@@ -1,0 +1,54 @@
+captainVersion: 4
+services:
+    $$cap_appname:
+        image: pgvector/pgvector:$$cap_pgvector_version
+        volumes:
+            - $$cap_appname-data:/var/lib/postgresql/data
+        restart: always
+        environment:
+            POSTGRES_USER: $$cap_pg_user
+            POSTGRES_PASSWORD: $$cap_pg_pass
+            POSTGRES_DB: $$cap_pg_db
+            POSTGRES_INITDB_ARGS: $$cap_pg_initdb_args
+        caproverExtra:
+            notExposeAsWebApp: 'true'
+caproverOneClickApp:
+    variables:
+        - id: $$cap_pgvector_version
+          label: Version
+          defaultValue: '0.7.2-pg16'
+          description: Check out their Docker page for the valid tags https://hub.docker.com/r/pgvector/pgvector/tags, support only exact version tags (e.g. 0.7.2-pg16).
+          validRegex: /(\d(\.\d)+)-[A-Za-z]+[0-9]+$/
+        - id: $$cap_pg_user
+          label: Username
+          defaultValue: postgres
+          validRegex: /.{1,}/
+        - id: $$cap_pg_pass
+          label: Password
+          defaultValue: $$cap_gen_random_hex(16)
+          validRegex: /.{1,}/
+        - id: $$cap_pg_db
+          label: Default Database
+          defaultValue: postgres
+          validRegex: /.{1,}/
+        - id: $$cap_pg_initdb_args
+          label: Optional Arguments
+          description: >-
+              Arguments will be appended to `postgres initdb`.
+              Example: `--data-checksums`.
+          validRegex: /.{0,}/
+    instructions:
+        start: |-
+            PostgreSQL, often simply Postgres, is an object-relational database management system (ORDBMS) with an emphasis on extensibility and standards-compliance.
+
+            As a database server, its primary function is to store data, securely and supporting best practices, and retrieve it later, as requested by other software applications, be it those on the same computer or those running on another computer across a network (including the Internet).
+            It can handle workloads ranging from small single-machine applications to large Internet-facing applications with many concurrent users.
+
+            This deployment comes with the pgvector extension, which provides vector search and similarity search capabilities to PostgreSQL.
+        end: |-
+            Postgres is deployed and available as `srv-captain--$$cap_appname:5432` to other apps.
+            For example with Node.js: `const client = new Client({ user: '$$cap_pg_user', host: 'srv-captain--$$cap_appname', database: '$$cap_pg_db', password: '$$cap_pg_pass', port: 5432})`
+    displayName: PostgreSQL x pgvector
+    isOfficial: false
+    description: The PostgreSQL object-relational database system comes with pgvector extension.
+    documentation: https://github.com/pgvector/pgvector

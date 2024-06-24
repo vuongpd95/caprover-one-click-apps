@@ -100,3 +100,4 @@ In order to add a third party repository:
 #### 3rd party repositories
 -   Awes0meHub: [Github](https://github.com/caproverhub/caprover-one-click-apps) repository: `https://caproverhub.github.io/caprover-one-click-apps`
 -   Jordan-hall: [Github](https://github.com/Jordan-Hall/caprover-one-click-apps) repository: `https://oneclickapps.libertyware.io`
+-   Vuong repository: `https://caprover-oneclickapps.vpham.xyz`
