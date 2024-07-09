@@ -5,7 +5,6 @@ services:
         environment:
             KEYCLOAK_ADMIN: $$cap_keycloak_admin
             KEYCLOAK_ADMIN_PASSWORD: $$cap_keycloak_admin_password
-            KC_DB: $$cap_pg_db_name
             KC_DB_URL: $$cap_pg_db_url
             KC_DB_USERNAME: $$cap_pg_username
             KC_DB_PASSWORD: $$cap_pg_password
@@ -14,6 +13,7 @@ services:
             containerHttpPort: '8080'
             dockerfileLines:
                 - FROM quay.io/keycloak/keycloak:$$cap_keycloak_version as builder
+                - ENV KC_DB=postgres
                 - ENV KC_HEALTH_ENABLED=true
                 - ENV KC_METRICS_ENABLED=false
 
@@ -36,10 +36,6 @@ caproverOneClickApp:
           description: 'Login password for the admin web user.  12-20 characters.'
           defaultValue: $$cap_gen_random_hex(20)
           validRegex: /.{12,20}/
-        - id: $$cap_pg_db_name
-          label: Postgres Database Name
-          description: 'Database name for Keycloak.'
-          defaultValue: ''
         - id: $$cap_pg_db_url
           label: Postgres Database URL
           description: 'Database URL for Keycloak.'
