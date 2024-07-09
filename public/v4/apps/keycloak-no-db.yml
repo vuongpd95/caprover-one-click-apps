@@ -23,7 +23,7 @@ services:
                 - COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
                 - WORKDIR /opt/keycloak
-                - ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start", "--optimized", "--verbose"]
+                - ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start", "--optimized", "--proxy", "edge"]
 
 caproverOneClickApp:
     variables:
