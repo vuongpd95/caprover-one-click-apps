@@ -4,7 +4,7 @@ services:
         restart: always
         environment:
             KEYCLOAK_ADMIN: $$cap_keycloak_admin
-            KEYCLOAK_ADMIN_PASSWORD: $$cap_keycloak_admin_password
+            KEYCLOAK_ADMIN_PASSWORD: $$cap_keycloak_password
             KC_DB_URL: $$cap_pg_db_url
             KC_DB_USERNAME: $$cap_pg_username
             KC_DB_PASSWORD: $$cap_pg_password
@@ -31,7 +31,7 @@ caproverOneClickApp:
           description: 'Login username for the admin web user.'
           defaultValue: 'admin'
           validRegex: /.{1,}/
-        - id: $$cap_keycloak_admin_password
+        - id: $$cap_keycloak_password
           label: Keycloak admin password
           description: 'Login password for the admin web user.  12-20 characters.'
           defaultValue: $$cap_gen_random_hex(20)
