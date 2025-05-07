@@ -1,0 +1,61 @@
+captainVersion: 4
+services:
+    $$cap_appname:
+        environment:
+            DB_TYPE: $$cap_DB_ADAPTER
+            DB_HOST: $$cap_DB_HOST 
+            DB_PORT: $$cap_DB_PORT 
+            DB_USER: $$cap_DB_USER 
+            DB_PASS: $$cap_DB_PASS
+            DB_NAME: $$cap_DB_NAME 
+        image: requarks/wiki:$$cap_version
+        restart: always
+        caproverExtra:
+            containerHttpPort: '3000'
+caproverOneClickApp:
+    variables:
+        - label: Wiki.js Version
+          id: $$cap_version
+          defaultValue: '2.5'
+          description: It's highly recommended that you don't use the latest tag but instead the major version you need, e.g. requarks/wiki:2.5
+          validRegex: /.{1,}/
+        - label: Wiki.js DB adapter
+          id: $$cap_DB_ADAPTER
+          description: Which DB adapter wiki.js should use?
+          defaultValue: mysql
+          validRegex: /.{1,}/
+        - label: The database host
+          id: $$cap_DB_HOST
+          description: The database service name
+          defaultValue: ''
+          validRegex: /.{1,}/
+        - label: The database port
+          id: $$cap_DB_PORT
+          description: The database port
+          defaultValue: '3306'
+          validRegex: /.{1,}/
+        - label: The database username
+          id: $$cap_DB_USER
+          description: The database username
+          defaultValue: wikijs
+          validRegex: /.{1,}/
+        - label: The database password
+          id: $$cap_DB_PASS
+          description: The database password of the user
+          defaultValue: $$cap_gen_random_hex(16)
+          validRegex: /.{1,}/
+        - label: The database schema name
+          id: $$cap_DB_NAME
+          description: The database schema name
+          defaultValue: wikijs
+          validRegex: /.{1,}/
+    instructions:
+        end: >
+            Wiki.js is deployed and available as $$cap_appname. 
+
+            IMPORTANT: It will take up to 2 minutes for Wiki.js to be ready. Before that, you might see 502 error page.
+        start: Wiki.js is a fully open source, adaptable platform for building and running a Wiki.
+    displayName: wiki.js
+    isOfficial: true
+    description: The most powerful and extensible open source Wiki software
+    documentation: https://docs.requarks.io/
