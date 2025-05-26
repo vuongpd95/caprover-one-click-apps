@@ -1,0 +1,54 @@
+captainVersion: 4
+services:
+    $$cap_appname:
+        environment:
+            DB_USER: $$cap_DB_USER 
+            DB_PASSWORD: $$cap_DB_PASS
+            DB_DATABASE: $$cap_DB_NAME 
+            DB_HOST: $$cap_DB_HOST 
+        image: xwiki:$$cap_version-$$cap_DB_ADAPTER-tomcat
+        restart: always
+        caproverExtra:
+            containerHttpPort: '8080'
+caproverOneClickApp:
+    variables:
+        - label: XWiki Version 
+          id: $$cap_version
+          defaultValue: '17.3.0'
+          description: It's highly recommended that you don't use the latest tag but instead the major version you need
+          validRegex: /.{1,}/
+        - label: XWiki DB adapter
+          id: $$cap_DB_ADAPTER
+          description: mysql, postgres or mariadb 
+          defaultValue: mysql
+          validRegex: /.{1,}/
+        - label: The database username
+          id: $$cap_DB_USER
+          description: The database username
+          defaultValue: wikijs
+          validRegex: /.{1,}/
+        - label: The database password
+          id: $$cap_DB_PASS
+          description: The database password of the user
+          defaultValue: $$cap_gen_random_hex(16)
+          validRegex: /.{1,}/
+        - label: The database schema name
+          id: $$cap_DB_NAME
+          description: The database schema name
+          defaultValue: wikijs
+          validRegex: /.{1,}/
+        - label: The database host
+          id: $$cap_DB_HOST
+          description: The database service name
+          defaultValue: ''
+          validRegex: /.{1,}/
+    instructions:
+        end: >
+            XWiki is deployed and available as $$cap_appname. 
+
+            IMPORTANT: It will take up to 2 minutes for XWiki to be ready. Before that, you might see 502 error page.
+        start: XWiki offers a generic platform for developing projects and collaborative applications using the wiki paradigm. 
+    displayName: xwiki 
+    isOfficial: false 
+    description: The Advanced Open Source Enterprise Wiki
+    documentation: https://www.xwiki.org/xwiki/bin/view/Documentation/
