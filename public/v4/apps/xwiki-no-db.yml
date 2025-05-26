@@ -25,7 +25,7 @@ caproverOneClickApp:
         - label: The database username
           id: $$cap_DB_USER
           description: The database username
-          defaultValue: wikijs
+          defaultValue: xwiki 
           validRegex: /.{1,}/
         - label: The database password
           id: $$cap_DB_PASS
@@ -35,7 +35,7 @@ caproverOneClickApp:
         - label: The database schema name
           id: $$cap_DB_NAME
           description: The database schema name
-          defaultValue: wikijs
+          defaultValue: xwiki 
           validRegex: /.{1,}/
         - label: The database host
           id: $$cap_DB_HOST
