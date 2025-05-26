@@ -10,6 +10,8 @@ services:
         restart: always
         caproverExtra:
             containerHttpPort: '8080'
+        volumes:
+            - $$cap_appname-data:/usr/local/xwiki
 caproverOneClickApp:
     variables:
         - label: XWiki Version 
